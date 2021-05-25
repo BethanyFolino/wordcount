@@ -25,7 +25,12 @@ should return a dictionary with words as keys, and their counts as values.
 
 # Your name, plus anyone who helped you with this assignment
 # Give credit where credit is due.
-__author__ = "Bethany Folino"
+__author__ = """Bethany Folino and
+https://www.kite.com/python/answers/how-to-count-item-frequency-in-python
+https://www.geeksforgeeks.org/python-count-occurrences-of-each-word-in-given
+-text-file-using-dictionary/
+https://www.discoverbits.in/1562/attributeerror-dict-object-attribute-most_
+common-python"""
 
 import sys
 
@@ -65,8 +70,20 @@ def print_words(filename):
 
 def print_top(filename):
     """Prints the top count listing for the given file."""
-    # Your code here
-    return
+    import collections
+    frequency = {}
+    with open(filename) as text:
+        for word in text.read().split():
+            if word.lower() in frequency:
+                frequency[word.lower()] += 1
+            else:
+                frequency[word.lower()] = 1
+
+        new_dict = collections.OrderedDict(sorted(frequency.items()))
+        counted = collections.Counter(new_dict).most_common(20)
+        top_twenty = dict(counted)
+        for key in list(top_twenty.keys()):
+            print(key, ":", top_twenty[key])
 
 
 # This basic command line argument parsing code is provided and calls
